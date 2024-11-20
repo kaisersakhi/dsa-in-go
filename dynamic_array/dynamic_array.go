@@ -3,6 +3,7 @@ package dynamic_array
 import (
 	"errors"
 	"fmt"
+	"math"
 )
 
 type DynamicArray struct {
@@ -84,4 +85,35 @@ func (d *DynamicArray) LinearSearch(item int) (int, error) {
 	}
 
 	return 0, errors.New("item not found")
+}
+
+func (d *DynamicArray) BinarySearch(item int) (int, error) {
+	if !d.isSorted {
+		return 0, errors.New("items are not sorted, hard sort the items list first")
+	}
+
+	var newMid = func (l, r int) int {
+		return int(math.Floor(float64(l + r)/2))
+	}
+
+	var mLen = len(d.items)
+	var left = 0
+	var right = mLen
+	var mid = newMid(left, right)
+
+	for mid >= 0 && mid < mLen {
+		if d.items[mid] == item {
+			return mid, nil
+		} else if d.items[mid] > item {
+			// Go left.
+			right = mid
+		} else if d.items[mid] < item {
+			// Go right.
+			left = mid
+		}
+
+		mid = newMid(left, right)
+	}
+
+	return -1, errors.New("item not found")
 }

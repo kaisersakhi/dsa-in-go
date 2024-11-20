@@ -35,5 +35,11 @@ func main(){
 	fmt.Println("80 found at index : ", index)
 
 	fmt.Println("Sorted array is: ", da.BubbleSort())
+
+	_ = da.BubbleSortHard()
+
+	index, _ = da.BinarySearch(70)
+	fmt.Println("70 found at index : ", index)
+
 }
 
