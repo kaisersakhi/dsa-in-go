@@ -177,3 +177,29 @@ func (d *DynamicArray) BinarySearch(item int) (int, error) {
 
 	return -1, errors.New("item not found")
 }
+
+func (d *DynamicArray) Reverse() []int {
+	itemsDup := make([]int, len(d.items))
+	copy(itemsDup, d.items)
+
+	var left = 0
+	var right = len(itemsDup) - 1
+
+	for left < right {
+		temp := itemsDup[left]
+		itemsDup[left] = itemsDup[right]
+		itemsDup[right] = temp
+
+		left++
+		right--
+	}
+
+	return itemsDup
+}
+
+func (d *DynamicArray) ReverseHard() []int {
+	d.items = d.Reverse()
+	d.isSorted = false
+
+	return d.items
+}

@@ -48,5 +48,8 @@ func main(){
 
 	fmt.Println("max is : ", da.Max())
 	fmt.Println("min is : ", da.Min())
+	fmt.Println("Reversed : ", da.Reverse())
+
+	da.PrintAll()
 }
 
