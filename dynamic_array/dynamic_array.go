@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"math/rand"
 )
 
 type DynamicArray struct {
@@ -202,4 +203,38 @@ func (d *DynamicArray) ReverseHard() []int {
 	d.isSorted = false
 
 	return d.items
+}
+
+func (d *DynamicArray) Shuffle() []int {
+	itemsDup := make([]int, len(d.items))
+	copy(itemsDup, d.items)
+
+	var mLen = len(itemsDup)
+
+	for i := 0; i < mLen; i++ {
+		randomIndex := rand.Intn(mLen)
+		temp := itemsDup[0]
+		itemsDup[0] = itemsDup[randomIndex]
+		itemsDup[randomIndex] = temp
+	}
+
+	return itemsDup
+}
+
+func (d *DynamicArray) ShuffleHard() []int {
+	d.items = d.Shuffle()
+	d.isSorted = false
+
+	return d.items
+}
+
+func (d *DynamicArray) MergeHard(od *DynamicArray) {
+	combinedItems := append(d.items, od.items...)
+	d.items = combinedItems
+	d.isSorted = false
+}
+
+// SetifyHard Removes duplicates.
+func (d *DynamicArray) SetifyHard() {
+	
 }

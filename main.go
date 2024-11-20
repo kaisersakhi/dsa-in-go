@@ -2,7 +2,6 @@ package main
 
 import (
 	"dsa-interview-prep/dynamic_array"
-	"fmt"
 )
 
 func main(){
@@ -46,9 +45,12 @@ func main(){
 //	})
 
 
-	fmt.Println("max is : ", da.Max())
-	fmt.Println("min is : ", da.Min())
-	fmt.Println("Reversed : ", da.Reverse())
+//	fmt.Println("max is : ", da.Max())
+//	fmt.Println("min is : ", da.Min())
+//	fmt.Println("Reversed : ", da.Reverse())
+
+	da.BubbleSortHard()
+	da.ShuffleHard()
 
 	da.PrintAll()
 }
