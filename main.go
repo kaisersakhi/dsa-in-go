@@ -21,25 +21,32 @@ func main(){
 
 	da.PrintAll()
 
-	fmt.Printf("Removing 20\n")
+//	fmt.Printf("Removing 20\n")
+//
+//	item , _ := da.Remove(1)
+//
+//	fmt.Println("Removed : ", item)
+//
+//
+//	index, _ := da.LinearSearch(80)
+//
+//	da.PrintAll()
+//
+//	fmt.Println("80 found at index : ", index)
+//
+//	fmt.Println("Sorted array is: ", da.BubbleSort())
 
-	item , _ := da.Remove(1)
+//	_ = da.BubbleSortHard()
+//
+//	index, _ = da.BinarySearch(70)
+//	fmt.Println("70 found at index : ", index)
 
-	fmt.Println("Removed : ", item)
+//	da.ForEach(func(index, value int) {
+//		fmt.Println(value)
+//	})
 
 
-	index, _ := da.LinearSearch(80)
-
-	da.PrintAll()
-
-	fmt.Println("80 found at index : ", index)
-
-	fmt.Println("Sorted array is: ", da.BubbleSort())
-
-	_ = da.BubbleSortHard()
-
-	index, _ = da.BinarySearch(70)
-	fmt.Println("70 found at index : ", index)
-
+	fmt.Println("max is : ", da.Max())
+	fmt.Println("min is : ", da.Min())
 }
 

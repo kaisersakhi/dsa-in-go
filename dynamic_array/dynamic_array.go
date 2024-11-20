@@ -22,6 +22,66 @@ func (d *DynamicArray) Append(item int) {
 	d.items = append(d.items, item)
 }
 
+func (d *DynamicArray) Get(index int) (int, error) {
+	if index < 0 || index >= len(d.items) {
+		return 0, errors.New("index out of bound")
+	}
+
+	return d.items[index], nil
+}
+
+func (d *DynamicArray) Sum() int {
+	var sum int
+
+	for _, val := range d.items {
+		sum += val
+	}
+
+	return sum
+}
+
+func (d *DynamicArray) Average() float64{
+	return float64(d.Sum()) / float64(len(d.items))
+}
+
+func (d *DynamicArray) Max() int {
+	if len(d.items) < 1 {
+		return 0
+	}
+
+	var maxx = d.items[0]
+
+	d.ForEach(func(_, val int) {
+		if val > maxx {
+			maxx = val
+		}
+	})
+
+	return maxx
+}
+
+func (d *DynamicArray) Min() int {
+	if len(d.items) < 1 {
+		return 0
+	}
+
+	var minn = d.items[0]
+
+	d.ForEach(func(_, val int) {
+		if val < minn {
+			minn = val
+		}
+	})
+
+	return minn
+}
+
+func (d *DynamicArray) ForEach(callback func(int, int)) {
+	for index, val := range d.items {
+		callback(index, val)
+	}
+}
+
 func (d *DynamicArray) PrintAll() {
 	fmt.Print("[")
 	mLen := len(d.items)
