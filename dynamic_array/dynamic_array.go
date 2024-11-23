@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"reflect"
 )
 
 type DynamicArray struct {
@@ -262,4 +263,44 @@ func (d *DynamicArray) Union(d1 *DynamicArray) *DynamicArray {
 
 func (d *DynamicArray) UnionHard(d1 *DynamicArray) {
 	d.items = (d.Union(d1)).items
+}
+
+func (d *DynamicArray) Difference(d1 *DynamicArray) *DynamicArray{
+	var diff []int
+
+	for _, val := range d.items {
+		if !elementIn(d1.items, val) {
+			diff = append(diff, val)
+		}
+	}
+
+	return &DynamicArray{
+		items: diff,
+		isSorted: false,
+	}
+}
+
+func (d *DynamicArray) Intersect(d1 *DynamicArray) *DynamicArray {
+	var common []int
+
+	for _, val := range d.items {
+		if elementIn(d1.items, val) {
+			common = append(common, val)
+		}
+	}
+
+	return &DynamicArray{
+		items: common,
+		isSorted: false,
+	}
+}
+
+func elementIn(elements []int, item int) bool {
+	for _, element := range elements {
+		if element == item {
+			return true
+		}
+	}
+
+	return false
 }
