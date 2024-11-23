@@ -68,5 +68,15 @@ func main(){
 	da.UnionHard(d2)
 
 	da.PrintAll()
+
+	filtered := da.Filter(func(value int) bool {
+		if value % 2 == 0 {
+			return true
+		}
+
+		return false
+	})
+
+	filtered.PrintAll()
 }
 

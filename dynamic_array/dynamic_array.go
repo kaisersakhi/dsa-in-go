@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
-	"reflect"
 )
 
 type DynamicArray struct {
@@ -24,12 +23,46 @@ func (d *DynamicArray) Append(item int) {
 	d.items = append(d.items, item)
 }
 
+func (d *DynamicArray) Push(item int) {
+	d.Append(item)
+}
+
+func (d *DynamicArray) Pop() (int, error) {
+	if len(d.items) == 0 {
+		return 0, errors.New("list is already empty, can't perfom pop operation")
+	}
+
+	item := d.items[len(d.items) - 1]
+
+	d.items = d.items[:len(d.items) - 1]
+
+	return item, nil
+}
+
+func (d *DynamicArray) Clone() *DynamicArray {
+	clonedItems := make([]int, len(d.items))
+	copy(clonedItems, d.items)
+
+	return &DynamicArray{
+		items: clonedItems,
+		isSorted: d.isSorted,
+	}
+}
+
 func (d *DynamicArray) Get(index int) (int, error) {
 	if index < 0 || index >= len(d.items) {
 		return 0, errors.New("index out of bound")
 	}
 
 	return d.items[index], nil
+}
+
+func (d *DynamicArray) IsEmpty() bool {
+	if len(d.items) == 0 {
+		return true
+	}
+
+	return false
 }
 
 func (d *DynamicArray) Sum() int {
@@ -81,6 +114,31 @@ func (d *DynamicArray) Min() int {
 func (d *DynamicArray) ForEach(callback func(int, int)) {
 	for index, val := range d.items {
 		callback(index, val)
+	}
+}
+
+func (d *DynamicArray) Map(tranformFunc func(int) int) *DynamicArray {
+	clone := d.Clone()
+
+	clone.ForEach(func(index, value int) {
+		clone.items[index] = tranformFunc(value)
+	})
+
+	return clone
+}
+
+func (d *DynamicArray) Filter(predicate func(int) bool) *DynamicArray{
+	var dupItems []int
+
+	d.ForEach(func(_, value int){
+		if predicate(value) {
+			dupItems = append(dupItems, value)
+		}
+	})
+
+	return &DynamicArray{
+		items: dupItems,
+		isSorted: d.isSorted,
 	}
 }
 
@@ -147,6 +205,16 @@ func (d *DynamicArray) LinearSearch(item int) (int, error) {
 	}
 
 	return 0, errors.New("item not found")
+}
+
+func (d *DynamicArray) Contains(item int) bool {
+	_, err := d.LinearSearch(item)
+
+	if err != nil {
+		return false
+	}
+
+	return true
 }
 
 func (d *DynamicArray) BinarySearch(item int) (int, error) {
