@@ -12,6 +12,8 @@ func main(){
 	da.Append(80)
 	da.Append(90)
 	da.Append(60)
+	da.Append(60)
+	da.Append(60)
 	da.Append(50)
 	da.Append(30)
 	da.Append(10)
@@ -49,8 +51,10 @@ func main(){
 //	fmt.Println("min is : ", da.Min())
 //	fmt.Println("Reversed : ", da.Reverse())
 
-	da.BubbleSortHard()
-	da.ShuffleHard()
+//	da.BubbleSortHard()
+//	da.ShuffleHard()
+
+	da.SetifyHard()
 
 	da.PrintAll()
 }

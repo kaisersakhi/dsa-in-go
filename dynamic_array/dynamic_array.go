@@ -235,6 +235,17 @@ func (d *DynamicArray) MergeHard(od *DynamicArray) {
 }
 
 // SetifyHard Removes duplicates.
-func (d *DynamicArray) SetifyHard() {
-	
+func (d *DynamicArray) SetifyHard(){
+	arrayMap := make(map[int]bool)
+	var uniqItems []int
+
+	for _, val := range d.items {
+		if !arrayMap[val] {
+			arrayMap[val] = true // Mark item as read.
+			uniqItems = append(uniqItems, val)
+		}
+	}
+
+	d.items = uniqItems
+	d.isSorted = false
 }
