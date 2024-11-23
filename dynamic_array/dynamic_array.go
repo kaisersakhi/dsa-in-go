@@ -249,3 +249,17 @@ func (d *DynamicArray) SetifyHard(){
 	d.items = uniqItems
 	d.isSorted = false
 }
+
+func (d *DynamicArray) Union(d1 *DynamicArray) *DynamicArray {
+	d2 := NewDynamicArray()
+
+	d2.MergeHard(d)
+	d2.MergeHard(d1)
+	d2.SetifyHard()
+
+	return d2
+}
+
+func (d *DynamicArray) UnionHard(d1 *DynamicArray) {
+	d.items = (d.Union(d1)).items
+}
